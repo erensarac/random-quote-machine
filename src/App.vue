@@ -25,7 +25,7 @@ export default {
         this.authorName = res.data[randomNumber].author.replace("type.fit", " ").replace(",", " ")
       });
 
-      axios.get("../../gradient.json").then((res) => {
+      axios.get("gradient.json").then((res) => {
         const randomGradient = Math.floor(Math.random() * res.data.length);
         this.gradient.style = res.data[randomGradient];
       });
