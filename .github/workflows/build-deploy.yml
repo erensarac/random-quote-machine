@@ -4,7 +4,7 @@ jobs:
   build:
     concurrency: ci-${{ github.ref }}
     env:
-      VITE_QUOTE_API_URL: ${{ vars.API_URL }}
+      VITE_QUOTE_API_URL: ${{ vars.VITE_QUOTE_API_URL }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
