@@ -19,10 +19,9 @@ export default {
   },
   methods: {
     createQuote() {
-      axios.get("https://type.fit/api/quotes").then((res) => {
-        const randomNumber = Math.floor(Math.random() * res.data.length);
-        this.quoteText = res.data[randomNumber].text;
-        this.authorName = res.data[randomNumber].author.replace("type.fit", " ").replace(",", " ")
+      axios.get(import.meta.env.VITE_QUOTE_API_URL).then((res) => {
+        this.quoteText = res.data.quote;
+        this.authorName = res.data.author;
       });
 
       axios.get("gradient.json").then((res) => {
@@ -44,11 +43,9 @@ export default {
       authorName === null ? "Unknown" : authorName
     }}</strong>
     <div id="footer">
-      <a
-        target="_blank"
+      <a target="_blank"
         :href="`https://twitter.com/intent/tweet?text=${quoteText}%0A-%20${authorName}%0A&url=erensarac.github.io/random-quote-machine`"
-        id="tweet-quote"
-      >
+        id="tweet-quote">
         <Twitter color="white" :size="22" />
       </a>
       <button id="new-quote" @click="createQuote()">New Quote</button>
