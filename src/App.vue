@@ -43,12 +43,12 @@ export default {
       authorName === null ? "Unknown" : authorName
     }}</strong>
     <div id="footer">
-      <a target="_blank"
-        :href="`https://twitter.com/intent/tweet?text=${quoteText}%0A-%20${authorName}%0A&url=erensarac.github.io/random-quote-machine`"
-        id="tweet-quote">
+      <a target="_blank" id="tweet-quote"
+        :href="quoteText ? `https://twitter.com/intent/tweet?text=${quoteText}%0A-%20${authorName}%0A&url=erensarac.github.io/random-quote-machine` : '#'"
+        :disabled="!quoteText" @click="(e) => !quoteText && e.preventDefault()">
         <Twitter color="white" :size="22" />
       </a>
-      <button id="new-quote" @click="createQuote()">New Quote</button>
+      <button id="new-quote" @click="createQuote()" :disabled="!quoteText">New Quote</button>
     </div>
   </div>
 </template>
@@ -58,6 +58,7 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  max-width: 800px;
 }
 
 #text,
@@ -116,12 +117,17 @@ export default {
   transition: 250ms;
 }
 
-#tweet-quote:hover,
-#new-quote:hover {
+#tweet-quote[disabled=true],
+#new-quote:disabled {
+  cursor: not-allowed;
+}
+
+#tweet-quote:not([disabled=true]):hover,
+#new-quote:not(:disabled):hover {
   background-color: #42b883;
 }
 
-#tweet-quote:hover svg {
+#tweet-quote:not([disabled=true]):hover svg {
   fill: #fff;
 }
 </style>
