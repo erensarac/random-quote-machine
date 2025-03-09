@@ -3,6 +3,8 @@ on: [push]
 jobs:
   build:
     concurrency: ci-${{ github.ref }}
+    env:
+      VITE_QUOTE_API_URL: ${{ vars.API_URL }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
